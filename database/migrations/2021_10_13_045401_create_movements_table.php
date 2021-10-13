@@ -18,6 +18,8 @@ class CreateMovementsTable extends Migration
             $table->id();
             $table->string('type_movement');//tipo movimiento
             $table->string('deadline');//fecha Limite
+            $table->string('payment');//pago
+            $table->string('amount');//monto a pagar
             $table->string('date_movement');//fecha de movimiento
             $table->biginteger('id_user')->unsigned();
             $table->biginteger('id_movie')->unsigned();
