@@ -39,9 +39,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
     public function redirectPath(){
-        if(Auth::user()->type_user){ 
+        if(Auth::user()->type_user==true){ 
             return '/admin/panel';
-        }
-        return '/home';
+     
+    }       if(Auth::user()->type_user==false){ 
+        return '/registrado/home';  
+}else{
+
+    return '/home';
+}
+
     }
 }

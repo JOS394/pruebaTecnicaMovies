@@ -10,7 +10,8 @@
     <title>{{ config('app.name', 'Movies Sales') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -26,6 +27,13 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Movies Sales') }}
                 </a>
+                @if(Auth::user())
+                @if (Auth::user()->hasRole('Administrador')) 
+                <a class="navbar-brand" href="{{ url('admin/panel') }}">
+                    {{ 'Panel admin'  }}
+                </a>
+                @endif
+                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -75,6 +83,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+     
     </div>
+
 </body>
 </html>

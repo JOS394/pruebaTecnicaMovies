@@ -20,8 +20,9 @@ class CreateMoviesTable extends Migration
             $table->string('category');//categoria
             $table->string('status');//estado de la pelicula;disponible/no disponible
             $table->string('synopsis');//sinopsis pelicula
-            $table->string('price_rental');//precio de alquiler
-            $table->string('price_sale');//año de estreno
+            $table->year('release_year')->nullable();//año de estreno
+            $table->double('price_sale')->nullable();//precio de alquiler
+            $table->double('price_rental')->nullable();//precio de alquiler
             $table->timestamps();
         });
     }

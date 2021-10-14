@@ -16,8 +16,7 @@ class CreateCustomerTable extends Migration
         Schema::create('customer', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('full_name');//Nombre Completo
-            $table->string('debt');//Deuda por multas monetarias
+            $table->double('debt');//Deuda por multas monetarias
             $table->biginteger('id_user')->unsigned();
             $table->foreign('id_user')->references('id')->on('users');
             
