@@ -10,12 +10,11 @@
       {{-- barra de busqueda --}}
       <div class="card-header">
         <h4 class="card-title">Listado de peliculas</h4>  </div>
-
-      <table class="table table-striped display nowrap" id="movies">
+      <table class="table table-striped" id="movies">
         <ul class="nav nav-pills card-header-pills">
           <li class="nav-item">
             <br>
-            <a id="agregar1" class="btn btn-primary" href="{{url('/movies/create')}}" type="submit" data-toggle="tooltip" data-html="true" title="Crear nueva categoria" >Agregar nueva pelicula</a>
+            <a id="agregar1" class="btn btn-primary" href="{{url('/movies/create')}}" type="submit" data-toggle="tooltip" data-html="true" title="Crear nueva pelicula" >Agregar nueva pelicula</a>
           </li>
     <li> &nbsp;  &nbsp; </li>
 
@@ -45,6 +44,7 @@
                 <td scope="row">{{$movie->release_year}}</td>
                 <td scope="row">${{$movie->price_sale}}</td>
                 <td scope="row">
+                  <br>
                 @if (Auth::user()->hasPermissionTo('editar pelicula')) 
                         <a  class='btn btn-success' href="{{ url('/movies/'.$movie->id.'/edit')}}" data-toggle="tooltip" data-html="true" title="Editar pelicula" ><i class="fas fa-edit"></i></a>
                   @endif
@@ -62,7 +62,7 @@
             @endforeach
         </tbody>
     </table>
-
+  
     <!-- <link rel="stylesheet" type="text/css" href="{{ asset('sweetalert2/sweetalert2.min.js') }}"> -->
 
 <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -73,6 +73,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js" type="text/javascript"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.js"></script>
 
   </div>
     </div>
@@ -83,6 +84,9 @@
 
 $(document).ready(function() {
     $('#movies').DataTable( {
+      fixedColumns: true,
+    responsive:true,
+    autoWidth:true,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
@@ -107,7 +111,7 @@ $(document).ready(function() {
       
         <div class="row">
           @foreach ($movies as $movie) 
-        
+        @if($movie->status!='No disponible')
           <div class="col-lg-3 d-none d-lg-block py-3">
             <div class="card">
             <center>
@@ -145,7 +149,7 @@ $(document).ready(function() {
             <center>
           </div>
           <br><br>
-     
+     @endif
     @endforeach
     
   <!-- Inner -->

@@ -26,7 +26,7 @@
                 alt="..."
               />
               <div class="card-body">
-             <center> <a href="#!" class="btn btn-primary btn-lg">Gestionar usuarios</a></center>
+             <center> <a href="{{ route('users.index') }}" class="btn btn-primary btn-lg">Gestionar usuarios</a></center>
              <br>
                 <h5 class="card-title">Usuarios</h5>
                 <p class="card-text">

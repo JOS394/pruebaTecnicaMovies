@@ -14,7 +14,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies=Movie::select('name_movie','category',
+        $movies=Movie::select('id','name_movie','category',
         'status','synopsis','release_year','price_sale')
         ->get();
         return view('movies.index',compact('movies'));
@@ -65,12 +65,14 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $movies=Movie::select('name_movie','category',
+        $peliculas=Movie::select('id','name_movie','category',
         'status','synopsis','release_year','price_sale')
+        ->where('status','=','No disponible')
         ->get();
-        return view('registrado.home',compact('movies'));
+
+        return view('movies.index',compact('peliculas'));
     }
 
     /**
@@ -81,7 +83,8 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        //
+        $movie=Movie::findOrfail($id);
+        return view('movies.edit',compact('movie'));
     }
 
     /**
@@ -93,7 +96,16 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    $movieDB = Movie::find($id);
+    $movieDB->name_movie = $request->name_movie;
+    $movieDB->category = $request->category;
+    $movieDB->status = $request->status;
+    $movieDB->price_sale = $request->price_sale;
+    $movieDB->release_year = $request->release_year;
+    $movieDB->synopsis = $request->synopsis;
+    $movieDB->save();
+
+    return redirect('movies')->with('editado','ok');
     }
 
     /**
@@ -104,6 +116,8 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $movieDB = Movie::find($id);
+        Movie::destroy($id);
+         return redirect('movies')->with('eliminar','ok');
     }
 }
